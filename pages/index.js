@@ -104,6 +104,5 @@ export async function getServerSideProps() {
     props: {
       posts: arr,
     },
-    unstable_revalidate: 1,
   };
 }

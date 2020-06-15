@@ -84,17 +84,14 @@ function firebaseLoginWithGoogle() {
     });
 }
 
-function createPost(text) {
+function createPost(post) {
   return fetch(conf.baseUrl + `posts.json`, {
     method: "POST",
-    body: JSON.stringify({
-      title: text,
-      date: new Date(),
-    }),
+    body: JSON.stringify(post),
   })
     .then((res) => res.json())
     .then((json) => {
-      console.log("postData success: ", json);
+      console.log("ok postData success: ", json);
       return json;
     });
 }
