@@ -1,10 +1,11 @@
 import Head from "next/head";
 import Link from "next/link";
+import Header from "components/Header";
 import { createPost, getPosts } from "services/firebase";
+import { Button, Checkbox, Form } from "semantic-ui-react";
 
-export default function Home({ posts }) {
+export default function Home() {
   const [newPostTitle, setNewPostTitle] = React.useState("");
-  const [sPosts, setsPosts] = React.useState(posts);
 
   function handleNewPostChange(event) {
     setNewPostTitle(event.target.value);
@@ -18,44 +19,43 @@ export default function Home({ posts }) {
     };
     const res = await createPost(post);
     post.id = res.name;
-    let newPostsClone = [...sPosts];
-    newPostsClone.push(post);
-    console.log(newPostsClone);
-    setsPosts(newPostsClone);
   }
 
   return (
     <>
       <Head />
+      <Header />
       <div className="container">
-        <div className="posts">
-          <h1>Here is the list of articles</h1>
-          {sPosts.map((post) => {
-            return (
-              <li key={post.id}>
-                <Link href={`/posts/${post.id}`} as={`/posts/${post.id}`}>
-                  <a>{post.id}</a>
-                </Link>
-              </li>
-            );
-          })}
-        </div>
-
         <div className="dashboard">
           <h1>This is the dashboard</h1>
 
-          <form onSubmit={handleNewPostSubmit}>
-            <label>
-              <span>Name</span>
-              <br />
-              <input
+          <Form>
+            <Form.Group unstackable widths={2}>
+              <Form.Input
+                label="Post text"
                 type="text"
                 value={newPostTitle}
                 onChange={handleNewPostChange}
               />
-            </label>
-            <button>POST</button>
-          </form>
+            </Form.Group>
+            <Form.Button content="Post" />
+          </Form>
+          <hr />
+          <Form>
+            <h2>Register</h2>
+            <Form.Field>
+              <label>First Name</label>
+              <input placeholder="First Name" />
+            </Form.Field>
+            <Form.Field>
+              <label>Last Name</label>
+              <input placeholder="Last Name" />
+            </Form.Field>
+            <Form.Field>
+              <Checkbox label="I agree to the Terms and Conditions" />
+            </Form.Field>
+            <Button type="submit">Submit</Button>
+          </Form>
         </div>
       </div>
 
