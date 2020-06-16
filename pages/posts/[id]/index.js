@@ -4,6 +4,11 @@ import { getPosts, getPost } from "services/firebase";
 
 const Post = ({ post }) => {
   const router = useRouter();
+
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+
   const { id } = router.query;
   return (
     <>
@@ -33,7 +38,7 @@ export async function getStaticPaths() {
 
   // We'll pre-render only these paths at build time.
   // { fallback: false } means other routes should 404.
-  return { paths, fallback: false };
+  return { paths, fallback: true };
 }
 
 // This also gets called at build time
