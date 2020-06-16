@@ -1,5 +1,5 @@
 import Head from "next/head";
-
+import Link from "next/link";
 import { createPost, getPosts } from "services/firebase";
 
 export default function Home({ posts }) {
@@ -31,7 +31,13 @@ export default function Home({ posts }) {
         <div className="posts">
           <h1>Here is the list of articles</h1>
           {sPosts.map((post) => {
-            return <li key={post.id}>{post.date}</li>;
+            return (
+              <li key={post.id}>
+                <Link href={`/posts/${post.date}`} as={`/posts/${post.date}`}>
+                  <a>{post.date}</a>
+                </Link>
+              </li>
+            );
           })}
         </div>
 
