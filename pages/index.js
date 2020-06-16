@@ -33,8 +33,8 @@ export default function Home({ posts }) {
           {sPosts.map((post) => {
             return (
               <li key={post.id}>
-                <Link href={`/posts/${post.date}`} as={`/posts/${post.date}`}>
-                  <a>{post.date}</a>
+                <Link href={`/posts/${post.id}`} as={`/posts/${post.id}`}>
+                  <a>{post.id}</a>
                 </Link>
               </li>
             );
