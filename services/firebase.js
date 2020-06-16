@@ -100,7 +100,16 @@ function getPosts() {
   return fetch(conf.baseUrl + `posts.json`)
     .then((res) => res.json())
     .then((json) => {
-      console.log("postData success: ", json);
+      console.log("getPosts success: ", json);
+      return json;
+    });
+}
+
+function getPost(id) {
+  return fetch(conf.baseUrl + `posts/${id}.json`)
+    .then((res) => res.json())
+    .then((json) => {
+      console.log("getPost success: ", json);
       return json;
     });
 }
@@ -118,6 +127,7 @@ function deletePost(id) {
 
 export {
   getPosts,
+  getPost,
   createPost,
   deletePost,
   firebaseLoginWithGoogle,
