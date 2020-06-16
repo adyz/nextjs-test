@@ -5,7 +5,8 @@ export default function Header() {
   const router = useRouter();
   const activeItem = router.pathname;
 
-  const handleItemClick = (e, { name }) => router.push(name);
+  const handleItemClick = (e, { name }) =>
+    router.push(name, undefined, { shallow: true });
 
   return (
     <>
