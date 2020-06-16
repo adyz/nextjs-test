@@ -1,9 +1,7 @@
 import Head from "next/head";
-import Link from "next/link";
 import Header from "components/Header";
-import { createPost, getPosts } from "services/firebase";
-import { Button, Checkbox, Form } from "semantic-ui-react";
-
+import { createPost } from "services/firebase";
+import { Form } from "semantic-ui-react";
 export default function Home() {
   const [newPostTitle, setNewPostTitle] = React.useState("");
 
@@ -29,7 +27,7 @@ export default function Home() {
         <div className="dashboard">
           <h1>This is the dashboard</h1>
 
-          <Form>
+          <Form onSubmit={handleNewPostSubmit}>
             <Form.Group unstackable widths={2}>
               <Form.Input
                 label="Post text"
@@ -40,25 +38,8 @@ export default function Home() {
             </Form.Group>
             <Form.Button content="Post" />
           </Form>
-          <hr />
-          <Form>
-            <h2>Register</h2>
-            <Form.Field>
-              <label>First Name</label>
-              <input placeholder="First Name" />
-            </Form.Field>
-            <Form.Field>
-              <label>Last Name</label>
-              <input placeholder="Last Name" />
-            </Form.Field>
-            <Form.Field>
-              <Checkbox label="I agree to the Terms and Conditions" />
-            </Form.Field>
-            <Button type="submit">Submit</Button>
-          </Form>
         </div>
       </div>
-
       <style jsx>{`
         h1 {
           color: var(--primary);
@@ -94,21 +75,4 @@ export default function Home() {
       `}</style>
     </>
   );
-}
-
-export async function getServerSideProps() {
-  const res = await getPosts();
-  const arr = [];
-  for (let [key, value] of Object.entries(res)) {
-    arr.push({
-      id: key,
-      date: value.date,
-      title: value.title,
-    });
-  }
-  return {
-    props: {
-      posts: arr,
-    },
-  };
 }

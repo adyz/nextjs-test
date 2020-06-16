@@ -1,6 +1,6 @@
-import { Input, Menu } from "semantic-ui-react";
+import { Input, Menu, Modal, Button } from "semantic-ui-react";
 import { useRouter } from "next/router";
-
+import LoginForm from "components/Login";
 export default function Header() {
   const router = useRouter();
   const activeItem = router.pathname;
@@ -32,11 +32,13 @@ export default function Header() {
             <Menu.Item>
               <Input icon="search" placeholder="Search..." />
             </Menu.Item>
-            <Menu.Item
-              name="Login"
-              active={activeItem === "Login"}
-              onClick={handleItemClick}
-            />
+            <Modal trigger={<Button>Login</Button>}>
+              <Modal.Content>
+                <Modal.Description>
+                  <LoginForm />
+                </Modal.Description>
+              </Modal.Content>
+            </Modal>
           </Menu.Menu>
         </Menu>
       </header>

@@ -84,6 +84,29 @@ function firebaseLoginWithGoogle() {
     });
 }
 
+function register(userForm) {
+  console.log("Registering...");
+  return fetch(conf.signUpUrl, {
+    method: "POST",
+    body: JSON.stringify({
+      email: userForm.email,
+      password: userForm.password,
+      returnSecureToken: true,
+    }),
+  })
+    .then((res) => res.json())
+    .then((json) => {
+      console.log("Signup successfull", json);
+      TOKEN = json.idToken;
+      UID = json.localId;
+      return {
+        TOKEN,
+        UID,
+        error: json.error ? json.error : false,
+      };
+    });
+}
+
 function createPost(post) {
   return fetch(conf.baseUrl + `posts.json`, {
     method: "POST",
@@ -126,6 +149,7 @@ function deletePost(id) {
 }
 
 export {
+  register,
   getPosts,
   getPost,
   createPost,
