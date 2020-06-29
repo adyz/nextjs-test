@@ -96,13 +96,36 @@ function register(userForm) {
   })
     .then((res) => res.json())
     .then((json) => {
-      console.log("Signup successfull", json);
       TOKEN = json.idToken;
       UID = json.localId;
       return {
         TOKEN,
         UID,
+        email: json.email,
         error: json.error ? json.error : false,
+      };
+    });
+}
+
+function login(userForm) {
+  console.log("Login...");
+  return fetch(conf.loginUrl, {
+    method: "POST",
+    body: JSON.stringify({
+      email: userForm.email,
+      password: userForm.password,
+      returnSecureToken: true,
+    }),
+  })
+    .then((res) => res.json())
+    .then((json) => {
+      TOKEN = json.idToken;
+      UID = json.localId;
+      return {
+        TOKEN,
+        UID,
+        email: json.email,
+        error: typeof json.error !== undefined ? json.error : false,
       };
     });
 }
@@ -150,6 +173,7 @@ function deletePost(id) {
 
 export {
   register,
+  login,
   getPosts,
   getPost,
   createPost,
