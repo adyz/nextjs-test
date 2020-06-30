@@ -9,6 +9,7 @@
     "start": "NODE_ENV=production node server.js"
   },
   "dependencies": {
+    "@vercel/node": "^1.7.1",
     "cookie": "^0.4.1",
     "express": "^4.17.1",
     "firebase": "^7.15.1",
