@@ -4,8 +4,11 @@ import LoginForm from "components/Login";
 import RegisterForm from "components/Register";
 import { GlobalContext } from "components/Context";
 
+import i18n from "components/i18n/i18n";
+
 export default function Header() {
   const { user, logout } = React.useContext(GlobalContext);
+  const [t, { language, changeLanguage }] = i18n.useTranslation();
   const router = useRouter();
   const activeItem = router.pathname;
 
@@ -18,7 +21,7 @@ export default function Header() {
         <Menu secondary>
           <Menu.Item
             name="/"
-            content="Home"
+            content={t("h1")}
             active={activeItem === "/"}
             onClick={handleItemClick}
           />
@@ -36,6 +39,10 @@ export default function Header() {
             <Menu.Item>
               <Input icon="search" placeholder="Search..." />
             </Menu.Item>
+            <Menu.Item
+              content={t("change-locale")}
+              onClick={() => changeLanguage(language === "en" ? "de" : "en")}
+            />
             {user.email ? (
               <Button onClick={logout}>Logout {user.email}</Button>
             ) : (

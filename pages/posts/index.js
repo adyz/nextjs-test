@@ -1,11 +1,9 @@
 import Header from "components/Header";
-import { useRouter } from "next/router";
 import { getPosts } from "services/firebase";
 import Link from "next/link";
 
 export default function ({ posts }) {
   const [sPosts, setsPosts] = React.useState(posts);
-  const router = useRouter();
   return (
     <>
       <Header />
